@@ -1,3 +1,5 @@
+"use client"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -9,24 +11,33 @@ type CategoryPageProps = {
 }
 
 export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) {
+  const [heroOpacity, setHeroOpacity] = useState(1)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeroOpacity(Math.max(0, 1 - window.scrollY / 500))
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
 
-      {/* Title */}
-      <section className="relative z-20 bg-background pt-32 md:pt-36">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
-          <div className="flex items-end justify-end pb-6 md:pb-10">
-            <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-balance md:text-7xl lg:text-8xl">
-              {title}
-            </h1>
+      {/* Sticky block: title + hero together, sticks from page load */}
+      <div className="sticky top-20 z-10" style={{ opacity: heroOpacity }}>
+        <section className="bg-background pt-12 md:pt-16">
+          <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+            <div className="flex items-end justify-end pb-6 md:pb-10">
+              <h1 className="font-serif text-5xl leading-[0.95] tracking-tight text-balance md:text-7xl lg:text-8xl">
+                {title}
+              </h1>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Full-width hero image */}
-      <section className="sticky top-20 z-10 w-full overflow-hidden">
-        <div className="relative aspect-[16/9] w-full overflow-hidden">
+        <div className="relative h-[420px] sm:h-[520px] md:h-[640px] w-full overflow-hidden">
           <Image
             src={heroImage || "/placeholder.svg"}
             alt={title}
@@ -36,9 +47,9 @@ export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) 
             sizes="100vw"
           />
         </div>
-      </section>
+      </div>
 
-      {/* Scrollable content overlay wrapper */}
+      {/* Scrollable content scrolls over sticky block */}
       <div className="relative z-20 bg-background">
         {/* Project grid */}
         <section className="py-20 md:py-28">
