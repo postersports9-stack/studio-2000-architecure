@@ -8,7 +8,7 @@ export function Hero() {
       <section className="w-full overflow-hidden pt-36 md:pt-44">
         <div className="relative h-[420px] sm:h-[520px] md:h-[640px] w-full overflow-hidden">
           <Image
-            src="/hero-architecture.jpg"
+            src="/hero-architecture.webp"
             alt="Архитектонски проект на STUDIO 2000"
             fill
             priority
