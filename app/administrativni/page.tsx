@@ -4,7 +4,7 @@ export default function AdministrativniPage() {
   return (
     <CategoryPage
       title="Административни"
-      heroImage="/category-administrative.webp"
+      heroImage="/category-administrative.jpg"
       projects={[
         { name: "Општинска Зграда", location: "Скопје", year: "2022", image: "/project-1.jpg" },
         { name: "Судски Комплекс", location: "Битола", year: "2021", image: "/project-2.jpg" },
