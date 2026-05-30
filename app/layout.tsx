@@ -1,17 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Onest, Cormorant } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
+const onest = Onest({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-onest',
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
+const cormorant = Cormorant({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="mk" className={`${inter.variable} ${playfair.variable} bg-background`}>
+    <html lang="mk" className={`${onest.variable} ${cormorant.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

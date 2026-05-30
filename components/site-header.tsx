@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Phone } from "lucide-react"
 
 const navLinks = [
@@ -6,6 +7,7 @@ const navLinks = [
   { label: "Комерцијални", href: "/komercijalni" },
   { label: "Хотели", href: "/hoteli" },
   { label: "Станбени", href: "/stanbeni" },
+  { label: "Ентериери", href: "/enterieri" },
   { label: "За Нас", href: "/about" },
   { label: "Контакт", href: "/contact" },
 ]
@@ -14,8 +16,15 @@ export function SiteHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background">
       <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between px-6 md:px-12">
-        <Link href="/" className="font-serif text-xl tracking-tight md:text-2xl">
-          STUDIO 2000
+        <Link href="/" aria-label="STUDIO 2000 — почетна">
+          <Image
+            src="/logo.png"
+            alt="STUDIO 2000"
+            width={265}
+            height={93}
+            priority
+            className="h-7 w-auto md:h-8"
+          />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex xl:gap-8">

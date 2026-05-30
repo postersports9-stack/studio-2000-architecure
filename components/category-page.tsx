@@ -1,13 +1,15 @@
 "use client"
 import { useEffect, useState } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import type { Project } from "@/lib/projects"
 
 type CategoryPageProps = {
   title: string
   heroImage: string
-  projects: { name: string; location: string; year: string; image: string }[]
+  projects: Project[]
 }
 
 export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) {
@@ -54,13 +56,16 @@ export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) 
         {/* Project grid */}
         <section className="py-20 md:py-28">
           <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+            {projects.length === 0 && (
+              <p className="text-sm uppercase tracking-[0.2em] text-foreground/40">Наскоро</p>
+            )}
             <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, index) => (
-                <article key={project.name} className="group">
+                <Link key={project.slug} href={`/project/${project.slug}`} className="group block">
                   <div className="relative aspect-[4/5] w-full overflow-hidden">
                     <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.name}
+                      src={project.images[0] || "/placeholder.svg"}
+                      alt={project.title}
                       fill
                       className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -71,12 +76,12 @@ export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) 
                       <div className="mb-1 text-xs uppercase tracking-[0.2em] text-foreground/40">
                         {String(index + 1).padStart(2, "0")}
                       </div>
-                      <h2 className="font-serif text-xl leading-tight md:text-2xl">{project.name}</h2>
+                      <h2 className="font-serif text-xl leading-tight md:text-2xl">{project.title}</h2>
                       <div className="mt-1 text-sm text-foreground/60">{project.location}</div>
                     </div>
                     <div className="text-xs uppercase tracking-[0.2em] text-foreground/50">{project.year}</div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           </div>

@@ -20,13 +20,13 @@ export function Hero() {
         </div>
 
         <h1 className="max-w-5xl font-serif text-5xl leading-[1.05] text-balance text-background sm:text-6xl md:text-7xl lg:text-8xl">
-          Просторот како
+          Архитектонско студио
           <br />
-          форма на тишина.
+          во Скопје од 2000.
         </h1>
 
         <p className="mt-8 max-w-xl text-pretty text-base leading-relaxed text-background/80 md:text-lg">
-          Дизајнираме резиденции и комерцијални простори со прецизност, сензибилитет и трајност. Секој проект е автентичен израз на местото и нарачателот.
+          Проектираме станбени, комерцијални и јавни објекти, како и ентериерни решенија — од концепт до техничка изведба, со надзор, ревизија и консалтинг низ сите фази.
         </p>
 
         <div className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center">

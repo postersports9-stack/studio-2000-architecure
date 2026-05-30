@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const categories = [
   { label: "Административни", href: "/administrativni" },
@@ -13,7 +14,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1600px] px-6 py-16 md:px-12 md:py-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
-            <div className="font-serif text-2xl tracking-tight">STUDIO 2000</div>
+            <Image src="/logo.png" alt="STUDIO 2000" width={265} height={93} className="h-9 w-auto" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-foreground/60">
               Архитектонско студио посветено на висококвалитетен просторен дизајн од 2000 година.
             </p>
