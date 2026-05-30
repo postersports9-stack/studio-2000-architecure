@@ -37,8 +37,8 @@ export function SiteFooter() {
             <div className="mb-5 text-xs uppercase tracking-[0.2em] text-foreground/50">Контакт</div>
             <ul className="space-y-3 text-sm text-foreground/80">
               <li>
-                <a href="tel:+38923000000" className="transition-colors hover:text-foreground">
-                  +389 2 3000 000
+                <a href="tel:070220772" className="transition-colors hover:text-foreground">
+                  070 220 772
                 </a>
               </li>
               <li>

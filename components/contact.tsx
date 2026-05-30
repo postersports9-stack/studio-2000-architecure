@@ -16,11 +16,11 @@ export function Contact() {
         </h2>
 
         <a
-          href="tel:+38923000000"
+          href="tel:070220772"
           className="group mt-12 inline-flex items-center gap-6 border-y border-background/30 py-8 transition-colors hover:border-background md:mt-16 md:py-12"
         >
           <Phone className="h-8 w-8 transition-transform group-hover:-rotate-12 md:h-12 md:w-12" aria-hidden="true" />
-          <span className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">+389 2 3000 000</span>
+          <span className="font-serif text-4xl tracking-tight md:text-6xl lg:text-7xl">070 220 772</span>
         </a>
 
         <div className="mt-20 grid grid-cols-1 gap-12 border-t border-background/20 pt-16 md:grid-cols-3 md:gap-8">
