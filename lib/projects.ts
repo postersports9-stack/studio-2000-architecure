@@ -12,7 +12,7 @@ export type Project = {
 
 export const categories: { slug: CategorySlug; title: string; heroImage: string }[] = [
   { slug: "administrativni", title: "Административни", heroImage: "/category-administrative.jpg" },
-  { slug: "komercijalni", title: "Комерцијални", heroImage: "/category-commercial.jpg" },
+  { slug: "komercijalni", title: "Комерцијални", heroImage: "/category-commercial.webp" },
   { slug: "hoteli", title: "Хотели", heroImage: "/category-hotels.jpg" },
   { slug: "stanbeni", title: "Станбени", heroImage: "/category-residential.jpg" },
   {
