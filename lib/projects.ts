@@ -1,4 +1,5 @@
 import { client, urlFor } from './sanity'
+import type { SanityProject } from './sanity'
 
 export type CategorySlug = "administrativni" | "komercijalni" | "hoteli" | "stanbeni" | "enterieri"
 
@@ -28,7 +29,7 @@ export function getCategory(slug: CategorySlug) {
   return categories.find((c) => c.slug === slug)
 }
 
-function toProject(doc: any): Project {
+function toProject(doc: SanityProject): Project {
   return {
     slug: doc.slug?.current ?? doc._id,
     title: doc.title,
@@ -36,7 +37,7 @@ function toProject(doc: any): Project {
     location: doc.location,
     year: doc.year,
     description: doc.description ?? '',
-    images: (doc.images ?? []).map((img: any) =>
+    images: (doc.images ?? []).map((img) =>
       urlFor(img).width(1600).auto('format').url()
     ),
   }
