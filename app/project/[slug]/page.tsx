@@ -4,15 +4,16 @@ import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { getCategory, getProject, projects } from "@/lib/projects"
+import { getCategory, getProject, getAllProjectSlugs } from "@/lib/projects"
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+export async function generateStaticParams() {
+  const slugs = await getAllProjectSlugs()
+  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const project = getProject(slug)
+  const project = await getProject(slug)
   if (!project) return {}
   return {
     title: `${project.title} — STUDIO 2000`,
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const project = getProject(slug)
+  const project = await getProject(slug)
   if (!project) notFound()
 
   const category = getCategory(project.category)
