@@ -10,7 +10,7 @@ const navLinks = [
 export function SiteHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background">
-      <div className="mx-auto flex h-24 max-w-[1600px] items-center justify-between px-6 md:px-12">
+      <div className="mx-auto grid h-24 max-w-[1600px] grid-cols-3 items-center px-6 md:px-12">
         <Link href="/" aria-label="STUDIO 2000 — почетна">
           <Image
             src="/logo.png"
@@ -22,7 +22,7 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex xl:gap-10">
+        <nav className="hidden items-center justify-center gap-8 lg:flex xl:gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -33,6 +33,8 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+
+        <div />
       </div>
     </header>
   )

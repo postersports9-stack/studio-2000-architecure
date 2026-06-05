@@ -120,6 +120,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                     src={project.images[0] || '/placeholder.svg'}
                     alt={project.title}
                     fill
+                    unoptimized
                     className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />

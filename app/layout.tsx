@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Onest, Cormorant } from 'next/font/google'
+import { Onest, Lora } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -9,9 +9,9 @@ const onest = Onest({
   display: 'swap',
 })
 
-const cormorant = Cormorant({
+const lora = Lora({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-cormorant',
+  variable: '--font-lora',
   display: 'swap',
 })
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="mk" className={`${onest.variable} ${cormorant.variable} bg-background`}>
+    <html lang="mk" className={`${onest.variable} ${lora.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

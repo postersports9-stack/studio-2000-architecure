@@ -41,6 +41,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             alt={project.title}
             fill
             priority
+            unoptimized
             className="object-cover object-center"
             sizes="100vw"
           />
@@ -86,6 +87,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     src={src}
                     alt={`${project.title} — ${index + 2}`}
                     fill
+                    unoptimized
                     className="object-cover transition-transform duration-700 hover:scale-105"
                     sizes="(min-width: 768px) 50vw, 100vw"
                   />

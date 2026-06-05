@@ -2,10 +2,12 @@ import Link from "next/link"
 import Image from "next/image"
 
 const categories = [
-  { label: "Административни", href: "/administrativni" },
-  { label: "Комерцијални", href: "/komercijalni" },
-  { label: "Хотели", href: "/hoteli" },
-  { label: "Станбени", href: "/stanbeni" },
+  { label: "Сите проекти", href: "/projects" },
+  { label: "Административни", href: "/projects?category=administrativni" },
+  { label: "Комерцијални", href: "/projects?category=komercijalni" },
+  { label: "Хотели", href: "/projects?category=hoteli" },
+  { label: "Станбени", href: "/projects?category=stanbeni" },
+  { label: "Ентериери", href: "/projects?category=enterieri" },
 ]
 
 export function SiteFooter() {

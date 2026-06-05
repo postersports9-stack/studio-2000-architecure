@@ -38,7 +38,7 @@ function toProject(doc: SanityProject): Project {
     year: doc.year,
     description: doc.description ?? '',
     images: (doc.images ?? []).map((img) =>
-      urlFor(img).width(1600).auto('format').url()
+      urlFor(img).width(2400).quality(95).auto('format').url()
     ),
   }
 }
