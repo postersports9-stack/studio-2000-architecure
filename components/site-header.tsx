@@ -2,11 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 const navLinks = [
-  { label: "Административни", href: "/administrativni" },
-  { label: "Комерцијални", href: "/komercijalni" },
-  { label: "Хотели", href: "/hoteli" },
-  { label: "Станбени", href: "/stanbeni" },
-  { label: "Ентериери", href: "/enterieri" },
+  { label: "Проекти", href: "/projects" },
   { label: "За Нас", href: "/about" },
   { label: "Контакт", href: "/contact" },
 ]
