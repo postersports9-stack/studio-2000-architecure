@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Onest, Lora } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { PageTransition } from '@/components/page-transition'
 import './globals.css'
 
 const onest = Onest({
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="mk" className={`${onest.variable} ${lora.variable} bg-background`}>
       <body className="font-sans antialiased">
-        {children}
+        <PageTransition>{children}</PageTransition>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { getCategory, getProject, getAllProjectSlugs } from "@/lib/projects"
+import { ProjectGallery } from "@/components/project-gallery"
 
 export async function generateStaticParams() {
   const slugs = await getAllProjectSlugs()
@@ -80,20 +81,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {gallery.length > 0 && (
         <section className="pb-24 md:pb-32">
           <div className="mx-auto max-w-[1600px] px-6 md:px-12">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              {gallery.map((src, index) => (
-                <div key={src} className="relative aspect-[4/3] w-full overflow-hidden">
-                  <Image
-                    src={src}
-                    alt={`${project.title} — ${index + 2}`}
-                    fill
-                    unoptimized
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                  />
-                </div>
-              ))}
-            </div>
+            <ProjectGallery images={gallery} title={project.title} />
           </div>
         </section>
       )}
