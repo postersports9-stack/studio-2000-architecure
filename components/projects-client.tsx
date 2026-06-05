@@ -20,8 +20,9 @@ export function ProjectsClient({ projects, categories }: Props) {
   const activeCategories = useMemo<CategorySlug[]>(() => {
     const param = searchParams.get('category')
     if (!param) return []
-    return param.split(',').filter(Boolean) as CategorySlug[]
-  }, [searchParams])
+    const validSlugs = new Set(categories.map((c) => c.slug))
+    return param.split(',').filter((s): s is CategorySlug => validSlugs.has(s as CategorySlug))
+  }, [searchParams, categories])
 
   const filteredProjects = useMemo(() => {
     if (activeCategories.length === 0) return projects
@@ -69,6 +70,7 @@ export function ProjectsClient({ projects, categories }: Props) {
           <div className="flex gap-2 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <button
               onClick={clearFilters}
+              aria-pressed={isAllActive}
               className={`shrink-0 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.15em] transition-colors ${
                 isAllActive
                   ? 'border-foreground bg-foreground text-background'
@@ -83,6 +85,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                 <button
                   key={cat.slug}
                   onClick={() => toggleCategory(cat.slug)}
+                  aria-pressed={active}
                   className={`shrink-0 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.15em] transition-colors ${
                     active
                       ? 'border-foreground bg-foreground text-background'
