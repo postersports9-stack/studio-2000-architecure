@@ -45,7 +45,7 @@ export function SiteHeader() {
         <div className="mx-auto grid h-24 max-w-[1600px] grid-cols-3 items-center px-6 md:px-12">
           <Link href="/" aria-label="STUDIO 2000 — почетна" onClick={() => setOpen(false)}>
             <Image
-              src="/logo.png"
+              src="/logo-transparent.png"
               alt="STUDIO 2000"
               width={265}
               height={93}
@@ -61,7 +61,7 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm uppercase tracking-[0.18em] transition-colors ${
+                className={`font-serif text-sm uppercase tracking-[0.18em] transition-colors ${
                   transparent 
                     ? "text-white/70 hover:text-white" 
                     : "text-foreground/70 hover:text-foreground"

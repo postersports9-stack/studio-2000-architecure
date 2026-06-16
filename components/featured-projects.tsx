@@ -33,7 +33,7 @@ export function FeaturedProjects({ projects }: Props) {
               href={`/project/${project.slug}`}
               className="group block"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-muted">
                 <Image
                   src={project.images[0] || '/placeholder.svg'}
                   alt={project.title}

@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Filter } from 'lucide-react'
+import { Checkbox } from '@/components/ui/checkbox'
 import type { Project, CategorySlug } from '@/lib/projects'
 
 type Category = { slug: CategorySlug; title: string; heroImage: string }
@@ -42,22 +44,16 @@ export function ProjectsClient({ projects, categories }: Props) {
     router.replace(`/projects${params.toString() ? `?${params}` : ''}`)
   }
 
-  function clearFilters() {
-    router.replace('/projects')
-  }
-
-  const isAllActive = activeCategories.length === 0
-
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-12 md:pt-40 md:pb-16">
+      <section className="pt-28 pb-8 md:pt-32 md:pb-10">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12">
           <div className="flex items-end justify-between gap-8">
-            <h1 className="font-serif text-5xl leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
+            <h1 className="font-serif text-4xl leading-[0.95] tracking-tight md:text-5xl lg:text-6xl">
               Проекти
             </h1>
-            <span className="pb-2 text-xs uppercase tracking-[0.2em] text-foreground/40">
+            <span className="font-serif pb-1.5 text-[10px] uppercase tracking-[0.2em] text-foreground/40 sm:text-xs">
               {filteredProjects.length} проекти
             </span>
           </div>
@@ -65,37 +61,42 @@ export function ProjectsClient({ projects, categories }: Props) {
       </section>
 
       {/* Sticky filter bar */}
-      <div className="sticky top-24 z-30 border-b border-foreground/10 bg-background">
+      <div className="sticky top-24 z-30 border-b border-foreground/10 bg-background/95 backdrop-blur-sm">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12">
-          <div className="flex gap-2 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <button
-              onClick={clearFilters}
-              aria-pressed={isAllActive}
-              className={`shrink-0 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.15em] transition-colors ${
-                isAllActive
-                  ? 'border-foreground bg-foreground text-background'
-                  : 'border-foreground/20 text-foreground/50 hover:border-foreground/40'
-              }`}
-            >
-              Сите
-            </button>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 py-4">
+            <div className="flex items-center gap-2 font-serif text-[10px] uppercase tracking-[0.15em] text-foreground sm:text-xs">
+              <Filter className="h-3.5 w-3.5" />
+              <span>Филтер</span>
+            </div>
             {categories.map((cat) => {
               const active = activeCategories.includes(cat.slug)
               return (
-                <button
+                <label
                   key={cat.slug}
-                  onClick={() => toggleCategory(cat.slug)}
-                  aria-pressed={active}
-                  className={`shrink-0 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.15em] transition-colors ${
+                  className={`flex cursor-pointer items-center gap-2.5 font-serif text-[10px] uppercase tracking-[0.15em] transition-colors sm:text-xs ${
                     active
-                      ? 'border-foreground bg-foreground text-background'
-                      : 'border-foreground/20 text-foreground/50 hover:border-foreground/40'
+                      ? 'text-foreground'
+                      : 'text-foreground/40 hover:text-foreground'
                   }`}
                 >
-                  {cat.title}
-                </button>
+                  <Checkbox
+                    checked={active}
+                    onCheckedChange={() => toggleCategory(cat.slug)}
+                    className="h-3.5 w-3.5 border-foreground/30"
+                  />
+                  <span>{cat.title}</span>
+                </label>
               )
             })}
+            
+            {activeCategories.length > 0 && (
+              <button
+                onClick={() => router.replace('/projects')}
+                className="ml-auto font-serif text-[10px] uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-foreground sm:text-xs"
+              >
+                Избриши
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -115,7 +116,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                 href={`/project/${project.slug}`}
                 className="group block"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
                   <Image
                     src={project.images[0] || '/placeholder.svg'}
                     alt={project.title}
@@ -127,7 +128,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                 </div>
                 <div className="mt-5 flex items-start justify-between gap-4">
                   <div>
-                    <div className="mb-1 text-xs uppercase tracking-[0.2em] text-foreground/40">
+                    <div className="font-serif mb-1 text-xs uppercase tracking-[0.2em] text-foreground/40">
                       {String(index + 1).padStart(2, '0')}
                     </div>
                     <h2 className="font-serif text-xl leading-tight md:text-2xl">
@@ -137,7 +138,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                       {project.location}
                     </div>
                   </div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-foreground/50">
+                  <div className="font-serif text-xs uppercase tracking-[0.2em] text-foreground/50">
                     {project.year}
                   </div>
                 </div>

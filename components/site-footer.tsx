@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 items-start">
           {/* Logo & Description */}
           <div className="md:col-span-5 flex flex-col gap-3">
-            <Image src="/logo.png" alt="STUDIO 2000" width={265} height={93} className="h-8 w-auto self-start" />
+            <Image src="/logo-transparent.png" alt="STUDIO 2000" width={265} height={93} className="h-8 w-auto self-start" />
             <p className="max-w-sm text-xs leading-relaxed text-foreground/60">
               Архитектонско студио посветено на висококвалитетен просторен дизајн од 2000 година.
             </p>
@@ -16,7 +16,7 @@ export function SiteFooter() {
 
           {/* Navigation Links */}
           <nav className="md:col-span-3">
-            <div className="mb-4 text-xs uppercase tracking-[0.2em] text-foreground/50 font-sans">Линк</div>
+            <div className="mb-4 font-serif text-xs uppercase tracking-[0.2em] text-foreground/50">Линк</div>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/projects" className="text-foreground/80 transition-colors hover:text-foreground">
@@ -38,7 +38,7 @@ export function SiteFooter() {
 
           {/* Contact details */}
           <div className="md:col-span-4">
-            <div className="mb-4 text-xs uppercase tracking-[0.2em] text-foreground/50 font-sans">Контакт</div>
+            <div className="mb-4 font-serif text-xs uppercase tracking-[0.2em] text-foreground/50">Контакт</div>
             <ul className="space-y-2 text-sm text-foreground/80">
               <li>
                 <a href="tel:070220772" className="transition-colors hover:text-foreground">
@@ -56,7 +56,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-xs uppercase tracking-[0.2em] text-foreground/50 md:flex-row md:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 font-serif text-xs uppercase tracking-[0.2em] text-foreground/50 md:flex-row md:items-center">
           <div>STUDIO 2000 — Архитектонско Студио</div>
           <div>© {new Date().getFullYear()} Сите права задржани.</div>
         </div>

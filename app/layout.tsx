@@ -1,18 +1,30 @@
 import type { Metadata } from 'next'
-import { Onest, Lora } from 'next/font/google'
+import { Libre_Franklin } from 'next/font/google'
+import localFont from 'next/font/local'
 import { Analytics } from '@vercel/analytics/next'
 import { PageTransition } from '@/components/page-transition'
 import './globals.css'
 
-const onest = Onest({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-onest',
+const din = localFont({
+  src: [
+    {
+      path: './fonts/PFDinTextPro-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/PFDinTextPro-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-din',
   display: 'swap',
 })
 
-const lora = Lora({
+const franklin = Libre_Franklin({
   subsets: ['latin', 'cyrillic'],
-  variable: '--font-lora',
+  variable: '--font-franklin',
   display: 'swap',
 })
 
@@ -29,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="mk" className={`${onest.variable} ${lora.variable} bg-background`}>
+    <html lang="mk" className={`${franklin.variable} ${din.variable} bg-background`}>
       <body className="font-sans antialiased">
         <PageTransition>{children}</PageTransition>
         {process.env.NODE_ENV === 'production' && <Analytics />}

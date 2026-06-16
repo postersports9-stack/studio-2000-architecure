@@ -27,7 +27,7 @@ export function AboutSnippet() {
             <div className="mt-8">
               <Link
                 href="/about"
-                className="group inline-flex items-center gap-3 border border-foreground bg-foreground px-8 py-4 text-xs uppercase tracking-[0.25em] text-background transition-all hover:bg-background hover:text-foreground"
+                className="group inline-flex items-center gap-3 rounded-md border border-foreground bg-foreground px-8 py-4 font-serif text-xs uppercase tracking-[0.25em] text-background transition-all hover:bg-background hover:text-foreground"
               >
                 <span>Повеќе за нас</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

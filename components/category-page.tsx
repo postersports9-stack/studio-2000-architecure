@@ -62,7 +62,7 @@ export function CategoryPage({ title, heroImage, projects }: CategoryPageProps) 
             <div className="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, index) => (
                 <Link key={project.slug} href={`/project/${project.slug}`} className="group block">
-                  <div className="relative aspect-[4/5] w-full overflow-hidden">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
                     <Image
                       src={project.images[0] || "/placeholder.svg"}
                       alt={project.title}
