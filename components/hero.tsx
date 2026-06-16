@@ -105,13 +105,24 @@ export function Hero() {
         </div>
 
         {/* CTA overlay */}
-        <Link
-          href="/projects"
-          className="group absolute bottom-8 left-6 z-10 inline-flex items-center gap-3 rounded-md bg-white px-6 py-3 font-serif text-xs uppercase tracking-[0.25em] text-foreground transition-all hover:bg-foreground hover:text-white md:left-10 md:px-8 md:py-4"
-        >
-          Види проекти
-          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-        </Link>
+        <div className="absolute bottom-8 left-6 z-10 flex items-center gap-5 md:left-10">
+          <Link
+            href="/projects"
+            className="group inline-flex items-center gap-3 rounded-md bg-white px-6 py-3 font-serif text-xs uppercase tracking-[0.25em] text-foreground transition-all hover:bg-foreground hover:text-white md:px-8 md:py-4"
+          >
+            Види проекти
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+          </Link>
+
+          <Image
+            src="/logo-transparent.png"
+            alt="STUDIO 2000"
+            width={265}
+            height={93}
+            priority
+            className="h-9 w-auto brightness-0 invert md:h-11"
+          />
+        </div>
       </div>
     </section>
   )
