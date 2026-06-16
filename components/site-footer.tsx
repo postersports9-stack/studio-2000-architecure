@@ -46,8 +46,8 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
-                <a href="mailto:kontakt@studio2000.mk" className="transition-colors hover:text-foreground">
-                  kontakt@studio2000.mk
+                <a href="mailto:contact@studio2000.com.mk" className="transition-colors hover:text-foreground">
+                  contact@studio2000.com.mk
                 </a>
               </li>
               <li className="text-foreground/60">ул. Питу Гули 40, Скопје</li>

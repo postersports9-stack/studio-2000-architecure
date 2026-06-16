@@ -12,9 +12,11 @@ export default async function Page() {
     <main className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <Hero />
-      <FeaturedProjects projects={projects} />
-      <AboutSnippet />
-      <SiteFooter />
+      <div className="relative z-20 bg-background mt-[100vh]">
+        <FeaturedProjects projects={projects} />
+        <AboutSnippet />
+        <SiteFooter />
+      </div>
     </main>
   )
 }

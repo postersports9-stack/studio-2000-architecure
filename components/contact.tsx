@@ -56,7 +56,7 @@ export function Contact() {
             </div>
 
             <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
-              <ContactItem icon={Mail} label="Електронска пошта" value="kontakt@studio2000.mk" href="mailto:kontakt@studio2000.mk" />
+              <ContactItem icon={Mail} label="Електронска пошта" value="contact@studio2000.com.mk" href="mailto:contact@studio2000.com.mk" />
               <ContactItem icon={Clock} label="Работно време" value="Пон — Пет" sub="09:00 — 18:00" />
               <ContactItem icon={MapPin} label="Студио" value="ул. Питу Гули 40" sub="1000 Скопје" />
             </div>

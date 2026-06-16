@@ -17,6 +17,7 @@ const slides = [
 export function Hero() {
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [heroOpacity, setHeroOpacity] = useState(1)
 
   const resetTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -30,6 +31,14 @@ export function Hero() {
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [resetTimer])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeroOpacity(Math.max(0, 1 - window.scrollY / window.innerHeight))
+    }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   const goNext = useCallback(() => {
     setCurrent((c) => (c + 1) % slides.length)
     resetTimer()
@@ -41,7 +50,10 @@ export function Hero() {
   }, [resetTimer])
 
   return (
-    <section className="w-full overflow-hidden h-screen relative">
+    <section 
+      className="w-full overflow-hidden h-screen fixed top-0 left-0 z-10"
+      style={{ opacity: heroOpacity }}
+    >
       {/* Top vignette overlay for header readability */}
       <div className="absolute top-0 left-0 right-0 z-20 h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
 
