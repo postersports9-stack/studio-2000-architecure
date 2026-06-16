@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 
 const navLinks = [
   { label: "Проекти", href: "/projects" },
@@ -14,6 +14,21 @@ const navLinks = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
+  const isHome = pathname === "/"
+
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const transparent = isHome && !isScrolled
 
   function handleNavClick(href: string) {
     setOpen(false)
@@ -22,7 +37,11 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        transparent 
+          ? "bg-transparent text-white border-b border-transparent" 
+          : "bg-background/95 backdrop-blur-sm border-b border-border text-foreground"
+      }`}>
         <div className="mx-auto grid h-24 max-w-[1600px] grid-cols-3 items-center px-6 md:px-12">
           <Link href="/" aria-label="STUDIO 2000 — почетна" onClick={() => setOpen(false)}>
             <Image
@@ -31,7 +50,9 @@ export function SiteHeader() {
               width={265}
               height={93}
               priority
-              className="h-9 w-auto md:h-11"
+              className={`h-9 w-auto md:h-11 transition-all duration-300 ${
+                transparent ? "brightness-0 invert" : ""
+              }`}
             />
           </Link>
 
@@ -40,7 +61,11 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-foreground"
+                className={`text-sm uppercase tracking-[0.18em] transition-colors ${
+                  transparent 
+                    ? "text-white/70 hover:text-white" 
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
               >
                 {link.label}
               </Link>
@@ -53,9 +78,9 @@ export function SiteHeader() {
               aria-label={open ? "Затвори мени" : "Отвори мени"}
               className="flex lg:hidden flex-col items-end justify-center gap-1.5 p-2"
             >
-              <span className={`block h-px bg-foreground transition-all duration-300 ${open ? "w-6 translate-y-2.5 rotate-45" : "w-6"}`} />
-              <span className={`block h-px bg-foreground transition-all duration-300 ${open ? "w-0 opacity-0" : "w-4"}`} />
-              <span className={`block h-px bg-foreground transition-all duration-300 ${open ? "w-6 -translate-y-2.5 -rotate-45" : "w-6"}`} />
+              <span className={`block h-px transition-all duration-300 ${transparent ? "bg-white" : "bg-foreground"} ${open ? "w-6 translate-y-2.5 rotate-45" : "w-6"}`} />
+              <span className={`block h-px transition-all duration-300 ${transparent ? "bg-white" : "bg-foreground"} ${open ? "w-0 opacity-0" : "w-4"}`} />
+              <span className={`block h-px transition-all duration-300 ${transparent ? "bg-white" : "bg-foreground"} ${open ? "w-6 -translate-y-2.5 -rotate-45" : "w-6"}`} />
             </button>
           </div>
         </div>

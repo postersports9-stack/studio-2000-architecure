@@ -46,15 +46,9 @@ export function Contact() {
           {/* Left — info */}
           <div className="flex flex-col justify-between">
             <div>
-              <h1 className="font-serif text-5xl leading-[1.0] text-balance sm:text-6xl md:text-7xl">
-                Контактирајте нè
-                <br />
-                <span className="text-foreground/40">веднаш.</span>
-              </h1>
-
               <a
                 href="tel:070220772"
-                className="group mt-12 inline-flex items-center gap-5 border-y border-foreground/20 py-7 transition-colors hover:border-foreground/50"
+                className="group inline-flex items-center gap-5 border-y border-foreground/20 py-7 transition-colors hover:border-foreground/50"
               >
                 <Phone className="h-6 w-6 transition-transform group-hover:-rotate-12" aria-hidden="true" />
                 <span className="font-serif text-3xl tracking-tight md:text-4xl">070 220 772</span>
@@ -64,7 +58,7 @@ export function Contact() {
             <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
               <ContactItem icon={Mail} label="Електронска пошта" value="kontakt@studio2000.mk" href="mailto:kontakt@studio2000.mk" />
               <ContactItem icon={Clock} label="Работно време" value="Пон — Пет" sub="09:00 — 18:00" />
-              <ContactItem icon={MapPin} label="Студио" value="Бул. Партизански Одреди 15" sub="1000 Скопје" />
+              <ContactItem icon={MapPin} label="Студио" value="ул. Питу Гули 40" sub="1000 Скопје" />
             </div>
           </div>
 
