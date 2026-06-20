@@ -35,19 +35,20 @@ export function ProjectGallery({ images, title }: { images: string[]; title: str
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+      <div className="columns-1 gap-4 md:columns-2 md:gap-6">
         {images.map((src, index) => (
           <button
             key={src}
             onClick={() => setLightboxIndex(index)}
-            className="group relative aspect-[4/3] w-full cursor-zoom-in overflow-hidden focus:outline-none"
+            className="group relative mb-4 md:mb-6 block w-full break-inside-avoid cursor-zoom-in overflow-hidden focus:outline-none"
             aria-label={`Зголеми слика ${index + 1}`}
           >
             <ProjectImage
               src={src}
               alt={`${title} — ${index + 1}`}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              width={1200}
+              height={1200}
+              className="h-auto w-full transition-transform duration-700 group-hover:scale-105"
               sizes="(min-width: 768px) 50vw, 100vw"
             />
           </button>
