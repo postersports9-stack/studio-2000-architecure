@@ -58,7 +58,7 @@ export function Contact() {
             <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2">
               <ContactItem icon={Mail} label="Електронска пошта" value="contact@studio2000.com.mk" href="mailto:contact@studio2000.com.mk" />
               <ContactItem icon={Clock} label="Работно време" value="Пон — Пет" sub="09:00 — 18:00" />
-              <ContactItem icon={MapPin} label="Студио" value="ул. Питу Гули 40" sub="1000 Скопје" />
+              <ContactItem icon={MapPin} label="Адреса" value="ул. Питу Гули 40" sub="1000 Скопје" />
             </div>
           </div>
 
@@ -110,7 +110,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={state === "submitting"}
-                  className="group inline-flex items-center gap-3 rounded-md border border-foreground bg-foreground px-8 py-4 font-serif text-xs uppercase tracking-[0.25em] text-background transition-all hover:bg-background hover:text-foreground disabled:opacity-50"
+                  className="group inline-flex items-center gap-3 border border-foreground bg-foreground px-8 py-4 font-serif text-xs uppercase tracking-[0.25em] text-background transition-all hover:bg-background hover:text-foreground disabled:opacity-50"
                 >
                   {state === "submitting" ? "Се испраќа..." : "Испрати порака"}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

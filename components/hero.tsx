@@ -5,7 +5,9 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-const slides = [
+type Slide = { src: string; alt: string }
+
+const DEFAULT_SLIDES: Slide[] = [
   { src: "/hero-architecture.webp", alt: "Архитектонски проект на STUDIO 2000" },
   { src: "/category-commercial.webp", alt: "Комерцијален проект" },
   { src: "/category-administrative.jpg", alt: "Административен проект" },
@@ -14,10 +16,11 @@ const slides = [
   { src: "/projects-hero.jpg", alt: "Проекти на STUDIO 2000" },
 ]
 
-export function Hero() {
+export function Hero({ slides: slidesProp }: { slides?: Slide[] }) {
+  const slides = slidesProp && slidesProp.length > 0 ? slidesProp : DEFAULT_SLIDES
   const [current, setCurrent] = useState(0)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const [heroOpacity, setHeroOpacity] = useState(1)
+  const sectionRef = useRef<HTMLElement>(null)
 
   const resetTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current)
@@ -32,11 +35,25 @@ export function Hero() {
   }, [resetTimer])
 
   useEffect(() => {
+    // Drive opacity directly on the node via rAF — avoids a React re-render on
+    // every scroll event (which caused noticeable jank).
+    let raf = 0
     const handleScroll = () => {
-      setHeroOpacity(Math.max(0, 1 - window.scrollY / window.innerHeight))
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        const el = sectionRef.current
+        if (el) {
+          el.style.opacity = String(Math.max(0, 1 - window.scrollY / window.innerHeight))
+        }
+      })
     }
     window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+    handleScroll()
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
   }, [])
 
   const goNext = useCallback(() => {
@@ -50,9 +67,10 @@ export function Hero() {
   }, [resetTimer])
 
   return (
-    <section 
+    <section
+      ref={sectionRef}
       className="w-full overflow-hidden h-screen fixed top-0 left-0 z-10"
-      style={{ opacity: heroOpacity }}
+      style={{ opacity: 1 }}
     >
       {/* Top vignette overlay for header readability */}
       <div className="absolute top-0 left-0 right-0 z-20 h-32 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
@@ -65,6 +83,8 @@ export function Hero() {
             alt={slide.alt}
             fill
             priority={i === 0}
+            loading={i === 0 ? undefined : "lazy"}
+            unoptimized
             className={`object-cover object-center transition-opacity duration-1000 ${
               i === current ? "opacity-100" : "opacity-0"
             }`}
@@ -76,7 +96,7 @@ export function Hero() {
         <button
           onClick={goPrev}
           aria-label="Претходна слика"
-          className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 md:left-6 md:h-12 md:w-12"
+          className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center text-white/90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] transition-all hover:text-white md:left-6 md:h-12 md:w-12"
         >
           <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
         </button>
@@ -85,7 +105,7 @@ export function Hero() {
         <button
           onClick={goNext}
           aria-label="Следна слика"
-          className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white backdrop-blur-sm transition-all hover:bg-black/50 md:right-6 md:h-12 md:w-12"
+          className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center text-white/90 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] transition-all hover:text-white md:right-6 md:h-12 md:w-12"
         >
           <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
         </button>
@@ -97,31 +117,22 @@ export function Hero() {
               key={i}
               onClick={() => { setCurrent(i); resetTimer() }}
               aria-label={`Слајд ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
+              className={`h-1.5 cursor-pointer rounded-full transition-all duration-300 ${
                 i === current ? "w-6 bg-white" : "w-1.5 bg-white/40"
               }`}
             />
           ))}
         </div>
 
-        {/* CTA overlay */}
-        <div className="absolute bottom-8 left-6 z-10 flex items-center gap-5 md:left-10">
+        {/* CTA overlay — aligned to header gutter (max-w + px match site-header) */}
+        <div className="absolute inset-x-0 bottom-8 z-10 mx-auto max-w-[1600px] px-6 md:px-12">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-3 rounded-md bg-white px-6 py-3 font-serif text-xs uppercase tracking-[0.25em] text-foreground transition-all hover:bg-foreground hover:text-white md:px-8 md:py-4"
+            className="group inline-flex items-center gap-3 bg-white px-6 py-3 font-serif text-xs uppercase tracking-[0.25em] text-foreground transition-all hover:bg-foreground hover:text-white md:px-8 md:py-4"
           >
             Види проекти
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
-
-          <Image
-            src="/logo-transparent.png"
-            alt="STUDIO 2000"
-            width={265}
-            height={93}
-            priority
-            className="h-9 w-auto brightness-0 invert md:h-11"
-          />
         </div>
       </div>
     </section>

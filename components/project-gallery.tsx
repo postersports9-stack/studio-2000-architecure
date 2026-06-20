@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { ProjectImage } from "@/components/project-image"
 
 export function ProjectGallery({ images, title }: { images: string[]; title: string }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
@@ -42,11 +43,10 @@ export function ProjectGallery({ images, title }: { images: string[]; title: str
             className="group relative aspect-[4/3] w-full cursor-zoom-in overflow-hidden focus:outline-none"
             aria-label={`Зголеми слика ${index + 1}`}
           >
-            <Image
+            <ProjectImage
               src={src}
               alt={`${title} — ${index + 1}`}
               fill
-              unoptimized
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(min-width: 768px) 50vw, 100vw"
             />
@@ -68,8 +68,8 @@ export function ProjectGallery({ images, title }: { images: string[]; title: str
             <Image
               src={images[lightboxIndex]}
               alt={`${title} — ${lightboxIndex + 1}`}
-              width={1600}
-              height={1066}
+              width={2000}
+              height={1333}
               unoptimized
               className="max-h-[90vh] w-auto max-w-[90vw] object-contain"
               priority

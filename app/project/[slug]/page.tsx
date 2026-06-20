@@ -4,8 +4,10 @@ import { notFound } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { getCategory, getProject, getAllProjectSlugs } from "@/lib/projects"
+import { getProject, getAllProjectSlugs } from "@/lib/projects"
 import { ProjectGallery } from "@/components/project-gallery"
+
+export const revalidate = 60
 
 export async function generateStaticParams() {
   const slugs = await getAllProjectSlugs()
@@ -27,7 +29,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = await getProject(slug)
   if (!project) notFound()
 
-  const category = getCategory(project.category)
   const [hero, ...gallery] = project.images
 
   return (
@@ -52,13 +53,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {/* Title + meta + description */}
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-[1100px] px-6 md:px-12">
-          {category && (
+          {project.category && (
             <Link
-              href={`/${category.slug}`}
+              href={`/projects?category=${project.category}`}
               className="mb-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-foreground/50 transition-colors hover:text-foreground"
             >
               <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-              {category.title}
+              {project.categoryTitle}
             </Link>
           )}
 

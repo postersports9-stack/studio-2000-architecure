@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="mk" className={`${franklin.variable} ${din.variable} bg-background`}>
+    <html lang="mk" className={`${franklin.variable} ${din.variable} bg-background`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <PageTransition>{children}</PageTransition>
         {process.env.NODE_ENV === 'production' && <Analytics />}

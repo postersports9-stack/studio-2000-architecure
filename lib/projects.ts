@@ -1,39 +1,37 @@
 import { client, urlFor } from './sanity'
-import type { SanityProject } from './sanity'
+import type { SanityProject, SanityCategory, SanityHeroImage } from './sanity'
 
-export type CategorySlug = "administrativni" | "komercijalni" | "hoteli" | "stanbeni" | "enterieri"
+export type CategorySlug = string
 
 export type Project = {
   slug: string
   title: string
   category: CategorySlug
+  categoryTitle: string
   location: string
   year: string
   description: string
   images: string[]
 }
 
-export const categories: { slug: CategorySlug; title: string; heroImage: string }[] = [
-  { slug: "administrativni", title: "Административни", heroImage: "/category-administrative.jpg" },
-  { slug: "komercijalni", title: "Комерцијални", heroImage: "/category-commercial.webp" },
-  { slug: "hoteli", title: "Хотели", heroImage: "/category-hotels.jpg" },
-  { slug: "stanbeni", title: "Станбени", heroImage: "/category-residential.jpg" },
-  {
-    slug: "enterieri",
-    title: "Ентериери",
-    heroImage: "/projects/enterier-caci/edit-6000_result.webp",
-  },
-]
-
-export function getCategory(slug: CategorySlug) {
-  return categories.find((c) => c.slug === slug)
+export type Category = {
+  slug: CategorySlug
+  title: string
 }
+
+// Resolve the referenced category to its slug + title alongside all project fields.
+const PROJECT_PROJECTION = `{
+  ...,
+  "category": category->slug.current,
+  "categoryTitle": category->title
+}`
 
 function toProject(doc: SanityProject): Project {
   return {
     slug: doc.slug?.current ?? doc._id,
     title: doc.title,
-    category: doc.category,
+    category: doc.category ?? '',
+    categoryTitle: doc.categoryTitle ?? '',
     location: doc.location,
     year: doc.year,
     description: doc.description ?? '',
@@ -43,17 +41,19 @@ function toProject(doc: SanityProject): Project {
   }
 }
 
-export async function getProjectsByCategory(category: CategorySlug): Promise<Project[]> {
-  const docs = await client.fetch(
-    `*[_type == "project" && category == $category] | order(_createdAt desc)`,
-    { category }
+export async function getCategories(): Promise<Category[]> {
+  const docs: SanityCategory[] = await client.fetch(
+    `*[_type == "category"] | order(coalesce(order, 999) asc, title asc)`
   )
-  return docs.map(toProject)
+  return docs.map((doc) => ({
+    slug: doc.slug?.current ?? doc._id,
+    title: doc.title,
+  }))
 }
 
 export async function getProject(slug: string): Promise<Project | undefined> {
   const doc = await client.fetch(
-    `*[_type == "project" && slug.current == $slug][0]`,
+    `*[_type == "project" && slug.current == $slug][0] ${PROJECT_PROJECTION}`,
     { slug }
   )
   return doc ? toProject(doc) : undefined
@@ -66,7 +66,32 @@ export async function getAllProjectSlugs(): Promise<string[]> {
 
 export async function getAllProjects(): Promise<Project[]> {
   const docs = await client.fetch(
-    `*[_type == "project"] | order(_createdAt desc)`
+    `*[_type == "project"] | order(_createdAt desc) ${PROJECT_PROJECTION}`
   )
   return docs.map(toProject)
+}
+
+export async function getFeaturedProjects(): Promise<Project[]> {
+  const settings = await client.fetch(
+    `*[_type == "siteSettings"][0]{ "featuredProjects": featuredProjects[]-> ${PROJECT_PROJECTION} }`
+  )
+  const docs: SanityProject[] = (settings?.featuredProjects ?? []).filter(Boolean)
+  if (docs.length === 0) {
+    return (await getAllProjects()).slice(0, 4)
+  }
+  return docs.map(toProject)
+}
+
+export async function getHeroSlides(): Promise<{ src: string; alt: string }[]> {
+  const settings = await client.fetch(
+    `*[_type == "siteSettings"][0]{ heroImages }`
+  )
+  const images: SanityHeroImage[] = settings?.heroImages ?? []
+  return images
+    // Skip empty/unfinished image slots (no uploaded asset) — urlFor() throws on those.
+    .filter((img) => Boolean((img as { asset?: unknown })?.asset))
+    .map((img) => ({
+      src: urlFor(img).width(2400).quality(90).auto('format').url(),
+      alt: img.alt ?? '',
+    }))
 }

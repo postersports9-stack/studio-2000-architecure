@@ -2,13 +2,13 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useMemo } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Filter } from 'lucide-react'
+import { ProjectImage } from '@/components/project-image'
 import { Checkbox } from '@/components/ui/checkbox'
 import type { Project, CategorySlug } from '@/lib/projects'
 
-type Category = { slug: CategorySlug; title: string; heroImage: string }
+type Category = { slug: CategorySlug; title: string }
 
 type Props = {
   projects: Project[]
@@ -46,22 +46,8 @@ export function ProjectsClient({ projects, categories }: Props) {
 
   return (
     <>
-      {/* Hero */}
-      <section className="pt-28 pb-8 md:pt-32 md:pb-10">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
-          <div className="flex items-end justify-between gap-8">
-            <h1 className="font-serif text-4xl leading-[0.95] tracking-tight md:text-5xl lg:text-6xl">
-              Проекти
-            </h1>
-            <span className="font-serif pb-1.5 text-[10px] uppercase tracking-[0.2em] text-foreground/40 sm:text-xs">
-              {filteredProjects.length} проекти
-            </span>
-          </div>
-        </div>
-      </section>
-
       {/* Sticky filter bar */}
-      <div className="sticky top-24 z-30 border-b border-foreground/10 bg-background/95 backdrop-blur-sm">
+      <div className="sticky top-24 z-30 mt-28 border-b border-foreground/10 bg-background/95 backdrop-blur-sm md:mt-32">
         <div className="mx-auto max-w-[1600px] px-6 md:px-12">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 py-4">
             <div className="flex items-center gap-2 font-serif text-[10px] uppercase tracking-[0.15em] text-foreground sm:text-xs">
@@ -76,7 +62,7 @@ export function ProjectsClient({ projects, categories }: Props) {
                   className={`flex cursor-pointer items-center gap-2.5 font-serif text-[10px] uppercase tracking-[0.15em] transition-colors sm:text-xs ${
                     active
                       ? 'text-foreground'
-                      : 'text-foreground/40 hover:text-foreground'
+                      : 'text-foreground/70 hover:text-foreground'
                   }`}
                 >
                   <Checkbox
@@ -89,14 +75,19 @@ export function ProjectsClient({ projects, categories }: Props) {
               )
             })}
             
-            {activeCategories.length > 0 && (
-              <button
-                onClick={() => router.replace('/projects')}
-                className="ml-auto font-serif text-[10px] uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-foreground sm:text-xs"
-              >
-                Избриши
-              </button>
-            )}
+            <div className="ml-auto flex items-center gap-6">
+              {activeCategories.length > 0 && (
+                <button
+                  onClick={() => router.replace('/projects')}
+                  className="font-serif text-[10px] uppercase tracking-[0.15em] text-foreground/40 transition-colors hover:text-foreground sm:text-xs"
+                >
+                  Избриши
+                </button>
+              )}
+              <span className="font-serif text-[10px] uppercase tracking-[0.15em] text-foreground/60 sm:text-xs">
+                {filteredProjects.length} проекти
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -116,12 +107,11 @@ export function ProjectsClient({ projects, categories }: Props) {
                 href={`/project/${project.slug}`}
                 className="group block"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl">
-                  <Image
+                <div className="relative aspect-[4/5] w-full overflow-hidden">
+                  <ProjectImage
                     src={project.images[0] || '/placeholder.svg'}
                     alt={project.title}
                     fill
-                    unoptimized
                     className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />

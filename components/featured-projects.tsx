@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+import { ProjectImage } from '@/components/project-image'
 import type { Project } from '@/lib/projects'
 
 type Props = {
@@ -11,12 +11,7 @@ type Props = {
 export function FeaturedProjects({ projects }: Props) {
   if (projects.length === 0) return null
 
-  const firstProject = projects[0]
-  const featured = Array(4).fill(firstProject).map((proj, index) => ({
-    ...proj,
-    id: `${proj.slug}-${index}`,
-    index: index + 1
-  }))
+  const featured = projects.slice(0, 4)
 
   return (
     <section className="bg-background py-20 md:py-28 border-t border-border">
@@ -27,18 +22,17 @@ export function FeaturedProjects({ projects }: Props) {
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
-          {featured.map((project) => (
+          {featured.map((project, index) => (
             <Link
-              key={project.id}
+              key={project.slug}
               href={`/project/${project.slug}`}
               className="group block"
             >
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-muted">
-                <Image
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
+                <ProjectImage
                   src={project.images[0] || '/placeholder.svg'}
                   alt={project.title}
                   fill
-                  unoptimized
                   className="object-cover grayscale transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                 />
@@ -46,7 +40,7 @@ export function FeaturedProjects({ projects }: Props) {
               <div className="mt-5 flex items-start justify-between gap-4">
                 <div>
                   <div className="mb-1 text-xs uppercase tracking-[0.2em] text-foreground/40">
-                    {String(project.index).padStart(2, '0')}
+                    {String(index + 1).padStart(2, '0')}
                   </div>
                   <h3 className="font-serif text-lg leading-tight md:text-xl group-hover:text-foreground/70 transition-colors">
                     {project.title}

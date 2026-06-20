@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "seed:categories": "node scripts/seed-categories.mjs",
+    "clean:assets": "node scripts/clean-orphan-assets.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

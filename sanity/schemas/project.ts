@@ -21,16 +21,8 @@ export const projectSchema = defineType({
     defineField({
       name: 'category',
       title: 'Категорија',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Административни', value: 'administrativni' },
-          { title: 'Комерцијални', value: 'komercijalni' },
-          { title: 'Хотели', value: 'hoteli' },
-          { title: 'Станбени', value: 'stanbeni' },
-          { title: 'Ентериери', value: 'enterieri' },
-        ],
-      },
+      type: 'reference',
+      to: [{ type: 'category' }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

@@ -23,7 +23,7 @@ export function SiteHeader() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -42,7 +42,7 @@ export function SiteHeader() {
           ? "bg-transparent text-white border-b border-transparent" 
           : "bg-background/95 backdrop-blur-sm border-b border-border text-foreground"
       }`}>
-        <div className="mx-auto grid h-24 max-w-[1600px] grid-cols-3 items-center px-6 md:px-12">
+        <div className="mx-auto flex h-24 max-w-[1600px] items-center justify-between px-6 md:px-12">
           <Link href="/" aria-label="STUDIO 2000 — почетна" onClick={() => setOpen(false)}>
             <Image
               src="/logo-transparent.png"
@@ -56,23 +56,23 @@ export function SiteHeader() {
             />
           </Link>
 
-          <nav className="hidden items-center justify-center gap-8 lg:flex xl:gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-serif text-sm uppercase tracking-[0.18em] transition-colors ${
-                  transparent 
-                    ? "text-white/70 hover:text-white" 
-                    : "text-foreground/70 hover:text-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="flex items-center gap-6">
+            <nav className="hidden items-center justify-end gap-8 lg:flex xl:gap-10">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-serif text-sm uppercase tracking-[0.18em] transition-colors ${
+                    transparent
+                      ? "text-white/70 hover:text-white"
+                      : "text-foreground/70 hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
 
-          <div className="flex justify-end">
             <button
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Затвори мени" : "Отвори мени"}
