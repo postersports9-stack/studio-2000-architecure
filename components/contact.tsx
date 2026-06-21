@@ -46,7 +46,9 @@ export function Contact() {
           {/* Left — info */}
           <div className="flex flex-col justify-between">
             <div>
-              <div className="mb-4 text-xs uppercase tracking-[0.2em] text-foreground/50">Контактирајте не</div>
+              <div className="mb-8 text-5xl md:text-7xl uppercase tracking-wider text-foreground font-medium leading-[1.1]">
+                Контактирајте<br />нè
+              </div>
               <a
                 href="tel:070220772"
                 className="group inline-flex items-center gap-5 border-y border-foreground/20 py-7 transition-colors hover:border-foreground/50"
