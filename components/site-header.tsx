@@ -42,7 +42,7 @@ export function SiteHeader() {
           ? "bg-transparent text-white border-b border-transparent" 
           : "bg-background/95 backdrop-blur-sm border-b border-border text-foreground"
       }`}>
-        <div className="mx-auto flex h-24 max-w-[1600px] items-center justify-between px-6 md:px-12">
+        <div className="mx-auto flex h-24 max-w-[1920px] items-center justify-between px-6 md:px-12">
           <Link href="/" aria-label="STUDIO 2000 — почетна" onClick={() => setOpen(false)}>
             <Image
               src="/logo-transparent.png"

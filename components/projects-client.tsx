@@ -48,7 +48,7 @@ export function ProjectsClient({ projects, categories }: Props) {
     <>
       {/* Sticky filter bar */}
       <div className="sticky top-24 z-30 mt-28 border-b border-foreground/10 bg-background/95 backdrop-blur-sm md:mt-32">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="mx-auto max-w-[1920px] px-6 md:px-12">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 py-4">
             <div className="flex items-center gap-2 font-serif text-[10px] uppercase tracking-[0.15em] text-foreground sm:text-xs">
               <Filter className="h-3.5 w-3.5" />
@@ -94,7 +94,7 @@ export function ProjectsClient({ projects, categories }: Props) {
 
       {/* Project grid */}
       <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="mx-auto max-w-[1920px] px-6 md:px-12">
           {filteredProjects.length === 0 && (
             <p className="text-sm uppercase tracking-[0.2em] text-foreground/40">
               Нема проекти

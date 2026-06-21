@@ -106,7 +106,7 @@ export function ProjectsClient({ projects, categories }: Props) {
     <>
       {/* Hero */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="mx-auto max-w-[1920px] px-6 md:px-12">
           <div className="flex items-end justify-between gap-8">
             <h1 className="font-serif text-5xl leading-[0.95] tracking-tight md:text-7xl lg:text-8xl">
               Проекти
@@ -120,7 +120,7 @@ export function ProjectsClient({ projects, categories }: Props) {
 
       {/* Sticky filter bar */}
       <div className="sticky top-24 z-30 border-b border-foreground/10 bg-background">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="mx-auto max-w-[1920px] px-6 md:px-12">
           <div className="flex gap-2 overflow-x-auto py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <button
               onClick={clearFilters}
@@ -154,7 +154,7 @@ export function ProjectsClient({ projects, categories }: Props) {
 
       {/* Project grid */}
       <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="mx-auto max-w-[1920px] px-6 md:px-12">
           {filteredProjects.length === 0 && (
             <p className="text-sm uppercase tracking-[0.2em] text-foreground/40">
               Нема проекти

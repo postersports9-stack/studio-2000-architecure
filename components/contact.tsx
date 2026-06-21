@@ -33,7 +33,7 @@ export function Contact() {
 
   return (
     <section className="bg-background text-foreground">
-      <div className="mx-auto max-w-[1600px] px-6 py-12 md:px-12 md:py-20">
+      <div className="mx-auto max-w-[1920px] px-6 py-12 md:px-12 md:py-20">
 
         {/* Header */}
         <div className="mb-16 flex items-center gap-3">

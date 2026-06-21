@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react"
 export function AboutSnippet() {
   return (
     <section className="bg-background py-20 md:py-28 border-t border-border">
-      <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+      <div className="mx-auto max-w-[1920px] px-6 md:px-12">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
           {/* Left Column — Title */}
           <div>

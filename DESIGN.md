@@ -40,12 +40,12 @@ A `.dark` theme is defined but not currently activated. Keep new colours inside 
 
 ### Active (2-font system)
 
-- **Onest** (`--font-onest` → `--font-sans`) — body, nav, labels, UI. Neutral grotesque, the workhorse.
-- **Cormorant** (`--font-cormorant` → `--font-serif`) — all headings (`font-serif`). High-contrast display serif for gravitas.
+- **Libre Franklin** (`--font-franklin` → `--font-sans`) — body, nav, labels, UI. Neutral grotesque, the workhorse.
+- **DIN (PFDinTextPro)** (`--font-din` → `--font-serif`) — all headings (`font-serif`). Clean, structured geometric face for architectural gravitas.
 
-**Roles are strict:** Cormorant is **display only** (headings). Onest is everything else (body, meta, uppercase labels, buttons, nav). Never use Cormorant below ~`text-2xl` — its thin strokes need size to read, especially in Cyrillic.
+**Roles are strict:** DIN is **display only** (headings). Libre Franklin is everything else (body, meta, uppercase labels, buttons, nav).
 
-Wired via `next/font/google` in [app/layout.tsx](app/layout.tsx), exposed as `--font-sans` / `--font-serif` in the `@theme` block of [app/globals.css](app/globals.css), and consumed through Tailwind's `font-sans` / `font-serif` utilities. Both ship `'cyrillic'` subsets.
+Wired via `next/font/google` and `next/font/local` in [app/layout.tsx](app/layout.tsx), exposed as `--font-sans` / `--font-serif` in the `@theme` block of [app/globals.css](app/globals.css), and consumed through Tailwind's `font-sans` / `font-serif` utilities. Both ship complete Cyrillic character sets.
 
 ### Type scale (keep regardless of font choice)
 
@@ -57,66 +57,16 @@ Wired via `next/font/google` in [app/layout.tsx](app/layout.tsx), exposed as `--
 | Body / description | `text-base md:text-lg leading-relaxed text-foreground/70` |
 | Uppercase label | `text-xs uppercase tracking-[0.2em]–[0.3em]` |
 
-### Font recommendations (Cyrillic-ready)
+### How to use
 
-tenberke uses a licensed Swiss grotesque (Söhne/Suisse family) with **no serif at all** — headings and body are the same grotesque at different sizes. Those exact faces are paid and Latin-focused. Below are free **Google Fonts with full Cyrillic** that hit the same register.
-
-**Direction A — All-grotesque (closest to tenberke). Recommended.**
-Drop the serif entirely; use one neutral grotesque everywhere, separated by size/weight.
-
-| Role | Font | Why |
-|------|------|-----|
-| Everything | **Onest** | Modern neutral grotesque, complete Cyrillic, very close to Söhne/Suisse. Looks expensive at large sizes. |
-| Alt | **Golos Text** | Cyrillic-first grotesque (designed for Russian/MK shapes), extremely clean. Safest Cyrillic rendering. |
-| Alt | **IBM Plex Sans** | Neo-grotesque with a bit more engineering character; full Cyrillic. |
-
-**Direction B — Grotesque body + grotesque display.**
-Two grotesques for subtle contrast: a tighter display cut for headings, a neutral one for text.
-
-| Role | Font |
-|------|------|
-| Headings | **Unbounded** (geometric display, Cyrillic) or **Manrope** (heavier weights) |
-| Body | **Onest** or **Golos Text** |
-
-**Direction C — Keep a serif, but a better one.**
-If you want editorial serif headings (not tenberke's look, but elegant for an architecture studio) over a clean sans body.
-
-| Role | Font | Why |
-|------|------|-----|
-| Headings | **Cormorant** | High-contrast display serif, full Cyrillic, refined. |
-| Headings (alt) | **Source Serif 4** / **Lora** | Sturdier, very readable Cyrillic. |
-| Body | **Onest** / **Golos Text** / **IBM Plex Sans** | |
-
-All eight fonts above are on Google Fonts with a `cyrillic` subset — verify by adding `'cyrillic'` to the `subsets` array in the `next/font/google` call.
-
-> **My pick:** Direction A with **Onest** (or **Golos Text** if you want the most bullet-proof Cyrillic). It matches tenberke most closely and removes Playfair, which is what reads as "AI default."
-
-### How to swap (example: Direction A, Onest)
-
-`app/layout.tsx`:
-
-```ts
-import { Onest } from 'next/font/google'
-
-const onest = Onest({
-  subsets: ['latin', 'cyrillic'],
-  variable: '--font-onest',
-  display: 'swap',
-})
-
-// <html className={`${onest.variable} bg-background`}>
-```
-
-`app/globals.css` `@theme` block:
+`app/globals.css` `@theme` block defines the mapping:
 
 ```css
---font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
---font-serif: var(--font-onest), ui-sans-serif, sans-serif; /* same face → drop serif look */
+  --font-sans: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-din), ui-sans-serif, system-ui, sans-serif;
 ```
 
-Keeping `--font-serif` pointed at the same family means the existing `font-serif` heading classes keep working without touching every component. Later, swap headings to `font-sans` and delete `--font-serif` if you want a clean codebase.
-
-**Always include `'cyrillic'` in `subsets`.** Without it, Cyrillic glyphs fall back to a system font.
+**Always ensure Cyrillic support.** Without it, Cyrillic glyphs fall back to a system font.
 
 ---
 

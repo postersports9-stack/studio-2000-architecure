@@ -125,7 +125,7 @@ export function Hero({ slides: slidesProp }: { slides?: Slide[] }) {
         </div>
 
         {/* CTA overlay — aligned to header gutter (max-w + px match site-header) */}
-        <div className="absolute inset-x-0 bottom-8 z-10 mx-auto max-w-[1600px] px-6 md:px-12">
+        <div className="absolute inset-x-0 bottom-8 z-10 mx-auto max-w-[1920px] px-6 md:px-12">
           <Link
             href="/projects"
             className="group inline-flex items-center gap-3 bg-white px-6 py-3 font-serif text-xs uppercase tracking-[0.25em] text-foreground transition-all hover:bg-foreground hover:text-white md:px-8 md:py-4"

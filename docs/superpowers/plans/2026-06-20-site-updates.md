@@ -35,12 +35,12 @@ File: `components/hero.tsx` lines 79, 88 (prev + next buttons).
 
 ## 5. Align logo and "Види проекти" on wide monitors
 
-Root cause: logo sits in header's centered `max-w-[1600px]` container with `px-6 md:px-12`; hero CTA is absolutely positioned at `left-6 md:left-10` relative to the full-width section. On viewports >1600px these left edges diverge.
+Root cause: logo sits in header's centered `max-w-[1920px]` container with `px-6 md:px-12`; hero CTA is absolutely positioned at `left-6 md:left-10` relative to the full-width section. On viewports >1600px these left edges diverge.
 
 File: `components/hero.tsx` CTA (lines ~108–114).
 
 - Wrap CTA in a container matching the header exactly:
-  `<div className="absolute inset-x-0 bottom-8 z-10 mx-auto max-w-[1600px] px-6 md:px-12">` and make the `<Link>` `relative inline-flex` with no `left-*` offset.
+  `<div className="absolute inset-x-0 bottom-8 z-10 mx-auto max-w-[1920px] px-6 md:px-12">` and make the `<Link>` `relative inline-flex` with no `left-*` offset.
 - Note `md:left-10` (40px) ≠ header `md:px-12` (48px) — switching to `px-6 md:px-12` is what makes them share a vertical line.
 
 ## 6. Remove rounded corners — CTA buttons + project image cards

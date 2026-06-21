@@ -15,7 +15,7 @@ export function FeaturedProjects({ projects }: Props) {
 
   return (
     <section className="bg-background py-20 md:py-28 border-t border-border">
-      <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+      <div className="mx-auto max-w-[1920px] px-6 md:px-12">
         <div className="mb-12 flex items-center gap-3">
           <span className="h-px w-12 bg-foreground/60" aria-hidden="true" />
           <span className="text-xs uppercase tracking-[0.3em] text-foreground/70">Истакнати проекти</span>
